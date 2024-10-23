@@ -20,9 +20,9 @@
             padding-top: 10px;
         }
         canvas {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px; /* Space between pages */
         }
     </style>
 </head>
@@ -34,7 +34,7 @@
         const url = 'resume.pdf';
         const pdfViewer = document.getElementById('pdf-viewer');
 
-        // Get device pixel ratio for higher clarity rendering
+        // Get device pixel ratio for high-resolution rendering
         const dpr = window.devicePixelRatio || 1;
 
         pdfjsLib.getDocument(url).promise.then(pdf => {
@@ -43,16 +43,21 @@
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
                     
-                    // Increase scale for better clarity and adjust for device pixel ratio
-                    const scale = window.innerWidth < 768 ? 2.0 : 3.0;
+                    // Increase scale for better clarity, adjusting for device pixel ratio
+                    const scale = 2.0; // Adjust as needed (higher = sharper but larger)
                     const viewport = page.getViewport({ scale: scale * dpr });
 
-                    canvas.height = viewport.height;
+                    // Set canvas size based on the scaled viewport dimensions
                     canvas.width = viewport.width;
+                    canvas.height = viewport.height;
 
-                    // Adjust canvas scale for high-DPI displays
+                    // Adjust canvas style to fit screen width, preserving aspect ratio
                     canvas.style.width = `${viewport.width / dpr}px`;
                     canvas.style.height = `${viewport.height / dpr}px`;
+
+                    // Center the canvas horizontally
+                    canvas.style.display = "block";
+                    canvas.style.margin = "0 auto";
 
                     pdfViewer.appendChild(canvas);
 
