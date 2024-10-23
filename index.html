@@ -15,7 +15,7 @@
         }
         #pdf-viewer {
             width: 100%;
-            height: calc(100vh - 40px); /* Adjusted height to fit the download link */
+            height: calc(100vh - 60px); /* Adjust height to fit the download link */
             overflow-y: auto;
             box-sizing: border-box;
             padding-top: 10px;
@@ -29,11 +29,10 @@
             text-align: center; /* Center the download link */
             padding: 10px;
             font-size: 16px; /* Increase font size */
-            position: absolute; /* Positioning it at the bottom */
-            bottom: 0;
-            left: 0;
-            right: 0;
             background-color: white; /* Background color to ensure visibility */
+            position: relative; /* Use relative positioning */
+            z-index: 1; /* Ensure it stays above other content */
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for separation */
         }
     </style>
 </head>
