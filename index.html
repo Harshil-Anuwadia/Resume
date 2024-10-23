@@ -20,9 +20,14 @@
             padding-top: 10px;
         }
         canvas {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px; /* Space between pages */
+        }
+        .textLayer {
+            position: absolute;
+            pointer-events: none; /* Prevent mouse events on the text layer */
+            z-index: 1; /* Ensure text layer is above canvas */
         }
     </style>
 </head>
@@ -39,21 +44,37 @@
                 pdf.getPage(pageNum).then(page => {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
-                    
+
                     // Increase the scale for better clarity
                     const scale = window.innerWidth < 768 ? 1.5 : 2.0;
                     const viewport = page.getViewport({ scale: scale });
-                    
+
+                    // Set canvas size
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
 
+                    // Append canvas to viewer
                     pdfViewer.appendChild(canvas);
 
                     const renderContext = {
                         canvasContext: context,
                         viewport: viewport
                     };
-                    page.render(renderContext);
+                    page.render(renderContext).then(() => {
+                        // Create a text layer
+                        const textLayerDiv = document.createElement('div');
+                        textLayerDiv.className = 'textLayer';
+                        pdfViewer.appendChild(textLayerDiv);
+
+                        // Render the text layer
+                        const textLayer = page.getTextContent().then(textContent => {
+                            const textLayerRenderContext = {
+                                textLayerDiv: textLayerDiv,
+                                viewport: viewport,
+                            };
+                            pdfjsLib.renderTextLayer(textLayerRenderContext, textContent);
+                        });
+                    });
                 });
             }
         });
