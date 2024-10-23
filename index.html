@@ -20,9 +20,9 @@
             padding-top: 10px;
         }
         canvas {
-            display: block;
-            margin: 0 auto;
-            margin-bottom: 20px; /* Space between pages */
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -34,27 +34,18 @@
         const url = 'resume.pdf';
         const pdfViewer = document.getElementById('pdf-viewer');
 
-        // Get device pixel ratio for high-resolution rendering
-        const dpr = window.devicePixelRatio || 1;
-
         pdfjsLib.getDocument(url).promise.then(pdf => {
-            const renderPage = (pageNum) => {
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 pdf.getPage(pageNum).then(page => {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
-
-                    // Calculate scale based on viewport width for responsive design
-                    const desiredWidth = window.innerWidth * 0.95; // 95% of the viewport width
-                    const scale = desiredWidth / page.getViewport({ scale: 1 }).width;
-                    const viewport = page.getViewport({ scale: scale * dpr });
-
-                    // Set canvas size based on the scaled viewport dimensions
-                    canvas.width = viewport.width;
+                    
+                    // Increase the scale for better clarity
+                    const scale = window.innerWidth < 768 ? 1.5 : 2.0;
+                    const viewport = page.getViewport({ scale: scale });
+                    
                     canvas.height = viewport.height;
-
-                    // Center the canvas horizontally
-                    canvas.style.display = "block";
-                    canvas.style.margin = "0 auto";
+                    canvas.width = viewport.width;
 
                     pdfViewer.appendChild(canvas);
 
@@ -64,11 +55,6 @@
                     };
                     page.render(renderContext);
                 });
-            };
-
-            // Render all pages
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                renderPage(pageNum);
             }
         });
     </script>
