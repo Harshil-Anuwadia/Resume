@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harshil's Resume</title>
+    <title>PDF Preview</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <style>
         body {
@@ -38,22 +38,19 @@
         const dpr = window.devicePixelRatio || 1;
 
         pdfjsLib.getDocument(url).promise.then(pdf => {
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const renderPage = (pageNum) => {
                 pdf.getPage(pageNum).then(page => {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
-                    
-                    // Increase scale for better clarity, adjusting for device pixel ratio
-                    const scale = 2.0; // Adjust as needed (higher = sharper but larger)
+
+                    // Calculate scale based on viewport width for responsive design
+                    const desiredWidth = window.innerWidth * 0.95; // 95% of the viewport width
+                    const scale = desiredWidth / page.getViewport({ scale: 1 }).width;
                     const viewport = page.getViewport({ scale: scale * dpr });
 
                     // Set canvas size based on the scaled viewport dimensions
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
-
-                    // Adjust canvas style to fit screen width, preserving aspect ratio
-                    canvas.style.width = `${viewport.width / dpr}px`;
-                    canvas.style.height = `${viewport.height / dpr}px`;
 
                     // Center the canvas horizontally
                     canvas.style.display = "block";
@@ -67,6 +64,11 @@
                     };
                     page.render(renderContext);
                 });
+            };
+
+            // Render all pages
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                renderPage(pageNum);
             }
         });
     </script>
