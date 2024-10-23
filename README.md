@@ -13,10 +13,10 @@ Welcome to my **Personal Resume Viewer**! 🎉 This web app allows you to view m
 
 ## 🛠️ Technologies Used
 
-- ![HTML5](https://img.shields.io/badge/HTML5-FF5722?style=flat&logo=html5&logoColor=white) **HTML5**: Structuring the web page.
-- ![CSS3](https://img.shields.io/badge/CSS3-2196F3?style=flat&logo=css3&logoColor=white) **CSS3**: Styling for responsive design.
-- ![JavaScript](https://img.shields.io/badge/JavaScript-FBC02D?style=flat&logo=javascript&logoColor=black) **JavaScript**: Dynamic PDF rendering via PDF.js.
-- ![PDF.js](https://img.shields.io/badge/PDF.js-000000?style=flat&logo=pdf&logoColor=white) **[PDF.js](https://mozilla.github.io/pdf.js/)**: JavaScript library for PDF rendering.
+![HTML5](https://img.shields.io/badge/HTML5-FF5722?style=flat&logo=html5&logoColor=white) 
+![CSS3](https://img.shields.io/badge/CSS3-2196F3?style=flat&logo=css3&logoColor=white) 
+![JavaScript](https://img.shields.io/badge/JavaScript-FBC02D?style=flat&logo=javascript&logoColor=black) 
+![PDF.js](https://img.shields.io/badge/PDF.js-000000?style=flat&logo=pdf&logoColor=white)
 
 ## 💻 Getting Started
 
