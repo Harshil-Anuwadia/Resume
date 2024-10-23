@@ -34,18 +34,25 @@
         const url = 'resume.pdf';
         const pdfViewer = document.getElementById('pdf-viewer');
 
+        // Get device pixel ratio for higher clarity rendering
+        const dpr = window.devicePixelRatio || 1;
+
         pdfjsLib.getDocument(url).promise.then(pdf => {
             for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 pdf.getPage(pageNum).then(page => {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
                     
-                    // Increase the scale for better clarity
-                    const scale = window.innerWidth < 768 ? 1.5 : 2.0;
-                    const viewport = page.getViewport({ scale: scale });
-                    
+                    // Increase scale for better clarity and adjust for device pixel ratio
+                    const scale = window.innerWidth < 768 ? 2.0 : 3.0;
+                    const viewport = page.getViewport({ scale: scale * dpr });
+
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
+
+                    // Adjust canvas scale for high-DPI displays
+                    canvas.style.width = `${viewport.width / dpr}px`;
+                    canvas.style.height = `${viewport.height / dpr}px`;
 
                     pdfViewer.appendChild(canvas);
 
