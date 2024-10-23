@@ -10,15 +10,16 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Ensure the body takes full height */
         }
         #pdf-viewer {
-            width: 100%;
-            height: calc(100vh - 60px); /* Adjust height to fit the download link */
+            flex: 1; /* Take up remaining space */
             overflow-y: auto;
+            padding: 10px; /* Add padding for better visibility */
             box-sizing: border-box;
-            padding-top: 10px;
         }
         canvas {
             max-width: 100%;
@@ -27,12 +28,10 @@
         }
         .download-link {
             text-align: center; /* Center the download link */
-            padding: 10px;
-            font-size: 16px; /* Increase font size */
-            background-color: white; /* Background color to ensure visibility */
-            position: relative; /* Use relative positioning */
-            z-index: 1; /* Ensure it stays above other content */
-            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for separation */
+            padding: 15px; /* Add padding for better spacing */
+            font-size: 16px; /* Font size */
+            background-color: #f9f9f9; /* Background color to ensure visibility */
+            border-top: 1px solid #ccc; /* Top border for separation */
         }
     </style>
 </head>
@@ -52,7 +51,7 @@
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
 
-                    // Increase the scale for better clarity
+                    // Scale for better clarity
                     const scale = window.innerWidth < 768 ? 1.5 : 2.0;
                     const viewport = page.getViewport({ scale: scale });
 
