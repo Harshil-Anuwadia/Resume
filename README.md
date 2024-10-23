@@ -22,4 +22,4 @@ Welcome to my **Personal Resume Viewer**! 🎉 This web app allows you to view m
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/resume-viewer.git
+   git clone https://github.com/Harshil-Anuwadia/resume.git
