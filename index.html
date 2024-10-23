@@ -10,19 +10,19 @@
         body {
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         #pdf-viewer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             width: 100%;
             height: 100vh;
-            overflow: auto;
+            overflow-y: auto; /* Ensure scrolling if content is taller than viewport */
+            box-sizing: border-box; /* Ensures padding and border are inside the height */
+            padding-top: 10px; /* Adds some space at the top to prevent cutting */
         }
         canvas {
             max-width: 100%;
             height: auto;
+            margin-bottom: 20px; /* Adds space between PDF pages */
         }
     </style>
 </head>
