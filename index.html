@@ -17,7 +17,7 @@
             height: 100vh;
             overflow-y: auto;
             box-sizing: border-box;
-            padding-top: 10px;
+            position: relative; /* Position relative to contain text layer */
         }
         canvas {
             display: block;
@@ -26,6 +26,8 @@
         }
         .textLayer {
             position: absolute;
+            top: 0;
+            left: 0;
             pointer-events: none; /* Prevent mouse events on the text layer */
             z-index: 1; /* Ensure text layer is above canvas */
         }
@@ -45,8 +47,8 @@
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
 
-                    // Increase the scale for better clarity
-                    const scale = window.innerWidth < 768 ? 1.5 : 2.0;
+                    // Calculate scale to fit the screen
+                    const scale = window.innerWidth < 768 ? 1.5 : 1.0; // Adjust scale for mobile and desktop
                     const viewport = page.getViewport({ scale: scale });
 
                     // Set canvas size
@@ -67,12 +69,13 @@
                         pdfViewer.appendChild(textLayerDiv);
 
                         // Render the text layer
-                        const textLayer = page.getTextContent().then(textContent => {
-                            const textLayerRenderContext = {
-                                textLayerDiv: textLayerDiv,
+                        page.getTextContent().then(textContent => {
+                            pdfjsLib.renderTextLayer({
+                                textContent: textContent,
+                                container: textLayerDiv,
                                 viewport: viewport,
-                            };
-                            pdfjsLib.renderTextLayer(textLayerRenderContext, textContent);
+                                textDivs: []
+                            });
                         });
                     });
                 });
