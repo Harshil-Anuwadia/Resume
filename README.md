@@ -30,10 +30,3 @@ If you want to view my resume, [click here](https://braindrop.me/resume). 🔗
 1. Clone the repository:  
    ```bash
    git clone https://github.com/yourusername/resume-viewer.git
-
-### Explanation of Enhancements:
-- **Emojis**: They add a friendly touch and visually categorize sections.
-- **Badges**: These visually represent the technologies used, enhancing the attractiveness and professionalism of the README.
-- **Clear Structure**: The layout is organized, making it easy to read and follow.
-
-You can customize the clone URL under "Getting Started" to match your repository. Let me know if you need any further modifications!
